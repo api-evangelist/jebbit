@@ -1,0 +1,30 @@
+generated: '2026-07-19'
+method: searched
+source: openapi/jebbit-openapi-original.json
+docs: https://support-experiences.blueconic.com/en/articles/246971-api-overview
+summary:
+  types:
+  - oauth2
+  oauth2_flows:
+  - clientCredentials
+  token_format: JWT
+note: 'The OpenAPI models auth as http/bearer(JWT); the docs specify the real mechanism: OAuth 2.0 client_credentials
+  against an Auth0 tenant (auth.jebbit.com), audience "public-api", 24h JWT. A x-jebbit-business header
+  scopes multi-business tokens.'
+schemes:
+- name: JWT
+  type: oauth2
+  flow: clientCredentials
+  bearerFormat: JWT
+  tokenUrl: https://auth.jebbit.com/oauth/token
+  audience: public-api
+  header: 'Authorization: Bearer <jwt>'
+  scopes:
+  - read
+  - write
+  - delete
+  - read:integration
+  - write:integration
+  sources:
+  - openapi/jebbit-openapi-original.json
+  - docs
