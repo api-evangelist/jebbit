@@ -1,0 +1,134 @@
+openapi: 3.0.1
+info:
+  title: Jebbit Auth Launch Links API
+  description: "# Introduction\nUse our Jebbit API to automate tasks relating to your Jebbit Businesses, Campaigns, Product Feed, Launch Links, and Integrations.\n# Authentication Guide\nUse the `client_id` and `client_secret` provided by Jebbit in the [Auth Endpoint](/#tag/Auth) to generate an `access_token`. This token is valid for 24 hours. After that you'll need to hit the endpoint again to generate a new token.\n## Making API Requests\nJebbit requires your `access_token` (which is a [Json Web Token](https://jwt.io/) / JWT) to be included in all API requests. It must be sent in the `Authorization` header in the following format:\n\n`Authorization: Bearer <your access_token here>`\n\n**Important:** If your `access_token` has permissions (scopes) to multiple businesses, then we require you to send an `x-jebbit-business` header with every request. The value of this header is a business' ID. This header sets the scope of the request to the business provided.\n## API Resource Sorting\nAll resources from the API are listed descending by the time they were created.\n# Integration/Webhook Client Guide\nWhen using our [Integrations endpoint](/#tag/Integrations) to receive Jebbit webhooks there are a few key things you want to keep top-of-mind. To help assist in this process, we've created an [Example Webhook Client Repo](https://github.com/jebbit/jebbit-webhook-client-example) as a kickstarter.\n## Test Webhooks\nYou're able to [send a test webhook](/#tag/Integrations/) to your endpoint to verify that your integration and endpoint are properly set up. Test Webhooks allow you to test out the signature verification process before activating your Integration.\n\n**Important:** Jebbit sends an `x-jebbit-test` header with every test webhook. You should ensure there is logic in your application to properly discard these webhooks and not continue processing them through your data ingestion process.\n## Jebbit Webhooks\nAll webhooks Jebbit sends contain an `x-jebbit-signature` header. This header is how you can verify that the request to your endpoint is from Jebbit.\n## Anatomy of a Jebbit Signature\nThe value of a Jebbit Signature will be a string with two key/value pairs separated by a comma. The first part is the unix timestamp of when the webhook was sent and the second part is the hmac of the payload it carries.\n`x-jebbit-signature: t=#{timestamp},v1=#{hmac}`\n## Verifying a Signature\nThe first step of validating a signature is ensuring that the timestamp provided is within a reasonable threshold from the current timestamp, say 5 minutes. If a webhook is outside of this threshold it is recommended to not process it any further -- this helps guard against replay attacks.\n\n\n```ruby\n# Example in Ruby\nif timestamp < Time.now.to_i - 300 # 300 seconds = 5 minutes\n  raise StandardError, 'Timestamp outside of tolerance'\nend\n```\n\nThe next step will be to verify the `hmac` passed along by the `v1` attribute of the signature. To verify this you'll need to do the following:\n\n```ruby\n# Example in Ruby/Rails\n# Step 1 - regenerate the payload by using the timestamp the header\ngenerated_payload = \"#{timestamp}.#{request.body}\"\n\n# Step 2 - create an HMAC of the generated_payload using the `shared_secret` for the integration\n\ncalculated_hmac = Base64.strict_encode64(\n  OpenSSL::HMAC.digest('sha256', shared_secret, generated_payload)\n)\n\n# Step 3 - securely verify that the two hmacs are equal\nActiveSupport::SecurityUtils.secure_compare(hmac, calculated_hmac)\n\n# if they are equal, then you can accept the payload as valid & continue processing.\n```\n"
+  version: v1
+  x-logo:
+    url: https://jebbit-public-api-docs.s3.amazonaws.com/images/logo.png
+    backgroundColor: '#FFFFFF'
+    altText: Jebbit
+servers:
+- url: https://api2.jebbit.com/
+tags:
+- name: Launch Links
+paths:
+  /api/v1/campaigns/{campaign_id}/launch_links:
+    get:
+      summary: Lists Launch Links for a Campaign
+      tags:
+      - Launch Links
+      security:
+      - JWT: []
+      parameters:
+      - name: campaign_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/vnd.api+json:
+              examples:
+                example_0:
+                  value:
+                    data:
+                    - id: abC1234
+                      type: launch_links
+                      attributes:
+                        created_at: '2021-01-17T19:37:47.151Z'
+                        custom_param_value: JC=Product+Quiz+LP
+                        enabled: 'true'
+                        label: Product Quiz LP
+                        link_group: Owned Web
+                        link_parameter: L=Owned+Web
+                        include_uid_param: 'false'
+                        complete_live_link: http://localhost:3001/bce4291?L=Owned+Web&JC=Product+Quiz+LP
+                    - id: def6789
+                      type: launch_links
+                      attributes:
+                        created_at: '2020-12-29T18:58:35.791Z'
+                        custom_param_value: 'null'
+                        enabled: 'true'
+                        label: Linkedin
+                        link_group: Linkedin
+                        link_parameter: L=Linkedin
+                        include_uid_param: 'false'
+                        complete_live_link: http://localhost:3001/bce4291?L=Linkedin
+              schema:
+                $ref: '#/components/schemas/launch_links'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              examples:
+                example_0:
+                  value:
+                    errors:
+                    - status: 401
+                      title: Unauthorized Request
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              examples:
+                example_0:
+                  value:
+                    errors:
+                    - status: 401
+                      title: Unauthorized Request
+components:
+  schemas:
+    launch_links:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              type:
+                type: string
+              attributes:
+                type: object
+                properties:
+                  created_at:
+                    type: date
+                  custom_param_value:
+                    type: string
+                    nullable: true
+                  enabled:
+                    type: boolean
+                  label:
+                    type: string
+                  link_group:
+                    type: string
+                  link_parameter:
+                    type: string
+                  include_uid_param:
+                    type: boolean
+                  complete_live_link:
+                    type: string
+                required:
+                - created_at
+                - enabled
+                - label
+                - link_group
+                - complete_live_link
+            required:
+            - type
+  securitySchemes:
+    JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      flows:
+        authorizationCode:
+          tokenUrl: https://auth.jebbit.com/oauth/token
+          scopes:
+            read: Grants read access
+            write: Grants write access
+            delete: Grants delete access

@@ -1,0 +1,354 @@
+openapi: 3.0.1
+info:
+  title: Jebbit Auth Feed Rows API
+  description: "# Introduction\nUse our Jebbit API to automate tasks relating to your Jebbit Businesses, Campaigns, Product Feed, Launch Links, and Integrations.\n# Authentication Guide\nUse the `client_id` and `client_secret` provided by Jebbit in the [Auth Endpoint](/#tag/Auth) to generate an `access_token`. This token is valid for 24 hours. After that you'll need to hit the endpoint again to generate a new token.\n## Making API Requests\nJebbit requires your `access_token` (which is a [Json Web Token](https://jwt.io/) / JWT) to be included in all API requests. It must be sent in the `Authorization` header in the following format:\n\n`Authorization: Bearer <your access_token here>`\n\n**Important:** If your `access_token` has permissions (scopes) to multiple businesses, then we require you to send an `x-jebbit-business` header with every request. The value of this header is a business' ID. This header sets the scope of the request to the business provided.\n## API Resource Sorting\nAll resources from the API are listed descending by the time they were created.\n# Integration/Webhook Client Guide\nWhen using our [Integrations endpoint](/#tag/Integrations) to receive Jebbit webhooks there are a few key things you want to keep top-of-mind. To help assist in this process, we've created an [Example Webhook Client Repo](https://github.com/jebbit/jebbit-webhook-client-example) as a kickstarter.\n## Test Webhooks\nYou're able to [send a test webhook](/#tag/Integrations/) to your endpoint to verify that your integration and endpoint are properly set up. Test Webhooks allow you to test out the signature verification process before activating your Integration.\n\n**Important:** Jebbit sends an `x-jebbit-test` header with every test webhook. You should ensure there is logic in your application to properly discard these webhooks and not continue processing them through your data ingestion process.\n## Jebbit Webhooks\nAll webhooks Jebbit sends contain an `x-jebbit-signature` header. This header is how you can verify that the request to your endpoint is from Jebbit.\n## Anatomy of a Jebbit Signature\nThe value of a Jebbit Signature will be a string with two key/value pairs separated by a comma. The first part is the unix timestamp of when the webhook was sent and the second part is the hmac of the payload it carries.\n`x-jebbit-signature: t=#{timestamp},v1=#{hmac}`\n## Verifying a Signature\nThe first step of validating a signature is ensuring that the timestamp provided is within a reasonable threshold from the current timestamp, say 5 minutes. If a webhook is outside of this threshold it is recommended to not process it any further -- this helps guard against replay attacks.\n\n\n```ruby\n# Example in Ruby\nif timestamp < Time.now.to_i - 300 # 300 seconds = 5 minutes\n  raise StandardError, 'Timestamp outside of tolerance'\nend\n```\n\nThe next step will be to verify the `hmac` passed along by the `v1` attribute of the signature. To verify this you'll need to do the following:\n\n```ruby\n# Example in Ruby/Rails\n# Step 1 - regenerate the payload by using the timestamp the header\ngenerated_payload = \"#{timestamp}.#{request.body}\"\n\n# Step 2 - create an HMAC of the generated_payload using the `shared_secret` for the integration\n\ncalculated_hmac = Base64.strict_encode64(\n  OpenSSL::HMAC.digest('sha256', shared_secret, generated_payload)\n)\n\n# Step 3 - securely verify that the two hmacs are equal\nActiveSupport::SecurityUtils.secure_compare(hmac, calculated_hmac)\n\n# if they are equal, then you can accept the payload as valid & continue processing.\n```\n"
+  version: v1
+  x-logo:
+    url: https://jebbit-public-api-docs.s3.amazonaws.com/images/logo.png
+    backgroundColor: '#FFFFFF'
+    altText: Jebbit
+servers:
+- url: https://api2.jebbit.com/
+tags:
+- name: Feed Rows
+paths:
+  /api/v1/feed_rows:
+    get:
+      summary: Lists feed rows
+      tags:
+      - Feed Rows
+      security:
+      - JWT: []
+      parameters:
+      - name: filter[feed_id]
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+            description: Feed ID
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/vnd.api+json:
+              examples:
+                example_0:
+                  value:
+                    data:
+                    - id: abc123
+                      type: feed_rows
+                      attributes:
+                        data: '{"hello":"world"}'
+                    - id: def567
+                      type: feed_rows
+                      attributes:
+                        data: '{"hello":"world"}'
+              schema:
+                $ref: '#/components/schemas/feed_rows'
+        '400':
+          description: Bad Request
+          content:
+            application/vnd.api+json:
+              examples:
+                example_0:
+                  value:
+                    errors:
+                    - status: 400
+                      title: Bad Request
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              examples:
+                example_0:
+                  value:
+                    errors:
+                    - status: 401
+                      title: Unauthorized Request
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              examples:
+                example_0:
+                  value:
+                    errors:
+                    - status: 403
+                      title: Forbidden
+    post:
+      summary: Creates a feed row
+      tags:
+      - Feed Rows
+      security:
+      - JWT: []
+      parameters: []
+      responses:
+        '201':
+          description: Created
+          content:
+            application/vnd.api+json:
+              examples:
+                example_0:
+                  value:
+                    data:
+                      id: abc123
+                      type: feed_row
+                      attributes:
+                        data: '{"hello":"world"}'
+              schema:
+                $ref: '#/components/schemas/feed_row'
+        '400':
+          description: Bad Request
+          content:
+            application/vnd.api+json:
+              examples:
+                example_0:
+                  value:
+                    errors:
+                    - status: 400
+                      title: Bad Request
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              examples:
+                example_0:
+                  value:
+                    errors:
+                    - status: 401
+                      title: Unauthorized Request
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              examples:
+                example_0:
+                  value:
+                    errors:
+                    - status: 403
+                      title: Forbidden
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/feed_row_request'
+  /api/v1/feed_rows/{feed_row_id}:
+    get:
+      summary: Retrieves a Feed Row
+      tags:
+      - Feed Rows
+      security:
+      - JWT: []
+      parameters:
+      - name: feed_row_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/vnd.api+json:
+              examples:
+                example_0:
+                  value:
+                    data:
+                      id: abc123
+                      type: feed_row
+                      attributes:
+                        data: '{"hello":"world"}'
+              schema:
+                $ref: '#/components/schemas/feed_row'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              examples:
+                example_0:
+                  value:
+                    errors:
+                    - status: 401
+                      title: Unauthorized Request
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              examples:
+                example_0:
+                  value:
+                    errors:
+                    - status: 403
+                      title: Forbidden
+        '404':
+          description: Not Found
+    patch:
+      summary: Updates a Feed Row
+      tags:
+      - Feed Rows
+      security:
+      - JWT: []
+      parameters:
+      - name: feed_row_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/vnd.api+json:
+              examples:
+                example_0:
+                  value:
+                    data:
+                      id: abc123
+                      type: feed_rows
+                      attributes:
+                        data: '{"data":"data"}'
+              schema:
+                $ref: '#/components/schemas/feed_row'
+        '400':
+          description: Bad Request
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/feed_row'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              examples:
+                example_0:
+                  value:
+                    errors:
+                    - status: 401
+                      title: Unauthorized Request
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              examples:
+                example_0:
+                  value:
+                    errors:
+                    - status: 403
+                      title: Forbidden
+        '404':
+          description: Not Found
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/feed_row_request'
+    delete:
+      summary: Deletes a Feed Row
+      tags:
+      - Feed Rows
+      security:
+      - JWT: []
+      parameters:
+      - name: feed_row_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              examples:
+                example_0:
+                  value:
+                    errors:
+                    - status: 401
+                      title: Unauthorized Request
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              examples:
+                example_0:
+                  value:
+                    errors:
+                    - status: 403
+                      title: Forbidden
+        '404':
+          description: Not Found
+components:
+  schemas:
+    feed_row_request:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            type:
+              type: string
+            attributes:
+              type: object
+              properties:
+                feed_id:
+                  type: string
+                product_identifier:
+                  type: string
+                data:
+                  type: json
+              required:
+              - product_identifier
+              - feed_id
+              - data
+          required:
+          - type
+    feed_row:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            type:
+              type: string
+            attributes:
+              type: object
+              properties:
+                feed_id:
+                  type: string
+                product_identifier:
+                  type: string
+                data:
+                  type: json
+              required:
+              - product_identifier
+              - feed_id
+              - data
+          required:
+          - type
+    feed_rows:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: feed_row
+  securitySchemes:
+    JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      flows:
+        authorizationCode:
+          tokenUrl: https://auth.jebbit.com/oauth/token
+          scopes:
+            read: Grants read access
+            write: Grants write access
+            delete: Grants delete access

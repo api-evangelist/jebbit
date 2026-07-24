@@ -1,0 +1,401 @@
+openapi: 3.0.1
+info:
+  title: Jebbit Auth Integrations API
+  description: "# Introduction\nUse our Jebbit API to automate tasks relating to your Jebbit Businesses, Campaigns, Product Feed, Launch Links, and Integrations.\n# Authentication Guide\nUse the `client_id` and `client_secret` provided by Jebbit in the [Auth Endpoint](/#tag/Auth) to generate an `access_token`. This token is valid for 24 hours. After that you'll need to hit the endpoint again to generate a new token.\n## Making API Requests\nJebbit requires your `access_token` (which is a [Json Web Token](https://jwt.io/) / JWT) to be included in all API requests. It must be sent in the `Authorization` header in the following format:\n\n`Authorization: Bearer <your access_token here>`\n\n**Important:** If your `access_token` has permissions (scopes) to multiple businesses, then we require you to send an `x-jebbit-business` header with every request. The value of this header is a business' ID. This header sets the scope of the request to the business provided.\n## API Resource Sorting\nAll resources from the API are listed descending by the time they were created.\n# Integration/Webhook Client Guide\nWhen using our [Integrations endpoint](/#tag/Integrations) to receive Jebbit webhooks there are a few key things you want to keep top-of-mind. To help assist in this process, we've created an [Example Webhook Client Repo](https://github.com/jebbit/jebbit-webhook-client-example) as a kickstarter.\n## Test Webhooks\nYou're able to [send a test webhook](/#tag/Integrations/) to your endpoint to verify that your integration and endpoint are properly set up. Test Webhooks allow you to test out the signature verification process before activating your Integration.\n\n**Important:** Jebbit sends an `x-jebbit-test` header with every test webhook. You should ensure there is logic in your application to properly discard these webhooks and not continue processing them through your data ingestion process.\n## Jebbit Webhooks\nAll webhooks Jebbit sends contain an `x-jebbit-signature` header. This header is how you can verify that the request to your endpoint is from Jebbit.\n## Anatomy of a Jebbit Signature\nThe value of a Jebbit Signature will be a string with two key/value pairs separated by a comma. The first part is the unix timestamp of when the webhook was sent and the second part is the hmac of the payload it carries.\n`x-jebbit-signature: t=#{timestamp},v1=#{hmac}`\n## Verifying a Signature\nThe first step of validating a signature is ensuring that the timestamp provided is within a reasonable threshold from the current timestamp, say 5 minutes. If a webhook is outside of this threshold it is recommended to not process it any further -- this helps guard against replay attacks.\n\n\n```ruby\n# Example in Ruby\nif timestamp < Time.now.to_i - 300 # 300 seconds = 5 minutes\n  raise StandardError, 'Timestamp outside of tolerance'\nend\n```\n\nThe next step will be to verify the `hmac` passed along by the `v1` attribute of the signature. To verify this you'll need to do the following:\n\n```ruby\n# Example in Ruby/Rails\n# Step 1 - regenerate the payload by using the timestamp the header\ngenerated_payload = \"#{timestamp}.#{request.body}\"\n\n# Step 2 - create an HMAC of the generated_payload using the `shared_secret` for the integration\n\ncalculated_hmac = Base64.strict_encode64(\n  OpenSSL::HMAC.digest('sha256', shared_secret, generated_payload)\n)\n\n# Step 3 - securely verify that the two hmacs are equal\nActiveSupport::SecurityUtils.secure_compare(hmac, calculated_hmac)\n\n# if they are equal, then you can accept the payload as valid & continue processing.\n```\n"
+  version: v1
+  x-logo:
+    url: https://jebbit-public-api-docs.s3.amazonaws.com/images/logo.png
+    backgroundColor: '#FFFFFF'
+    altText: Jebbit
+servers:
+- url: https://api2.jebbit.com/
+tags:
+- name: Integrations
+paths:
+  /api/v1/integrations:
+    get:
+      summary: integrations
+      tags:
+      - Integrations
+      security:
+      - JWT: []
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/vnd.api+json:
+              examples:
+                example_0:
+                  value:
+                    data:
+                    - id: abc123
+                      type: integrations
+                      attributes:
+                        endpoint: https://www.example.com/webhook
+                        service_name: webhook
+                    - id: def567
+                      type: integrations
+                      attributes:
+                        endpoint: https://www.example.com/webhook2
+                        service_name: webhook
+              schema:
+                $ref: '#/components/schemas/integrations'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              examples:
+                example_0:
+                  value:
+                    errors:
+                    - status: 401
+                      title: Unauthorized Request
+        '403':
+          description: forbidden
+          content:
+            application/vnd.api+json:
+              examples:
+                example_0:
+                  value:
+                    errors:
+                    - status: 403
+                      title: Forbidden
+    post:
+      summary: integrations
+      tags:
+      - Integrations
+      security:
+      - JWT: []
+      parameters: []
+      responses:
+        '201':
+          description: Successful
+          content:
+            application/vnd.api+json:
+              examples:
+                example_0:
+                  value:
+                    data:
+                      id: abc123
+                      type: integration
+                      attributes:
+                        name: Jebbit
+              schema:
+                $ref: '#/components/schemas/integration'
+        '400':
+          description: bad request - must be a valid region (us|eu)
+          content:
+            application/vnd.api+json:
+              examples:
+                example_0:
+                  value:
+                    data:
+                      id: abc123
+                      type: integration
+                      attributes:
+                        name: Jebbit
+              schema:
+                $ref: '#/components/schemas/integration'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              examples:
+                example_0:
+                  value:
+                    errors:
+                    - status: 401
+                      title: Unauthorized Request
+        '403':
+          description: forbidden
+          content:
+            application/vnd.api+json:
+              examples:
+                example_0:
+                  value:
+                    errors:
+                    - status: 403
+                      title: Forbidden
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/integration_request'
+  /api/v1/integrations/{integration_id}:
+    get:
+      summary: Retrieves an Integration
+      tags:
+      - Integrations
+      security:
+      - JWT: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/vnd.api+json:
+              examples:
+                example_0:
+                  value:
+                    data:
+                      id: abc123
+                      type: integration
+                      attributes:
+                        name: Jebbit
+              schema:
+                $ref: '#/components/schemas/integration'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              examples:
+                example_0:
+                  value:
+                    errors:
+                    - status: 401
+                      title: Unauthorized Request
+        '403':
+          description: forbidden
+          content:
+            application/vnd.api+json:
+              examples:
+                example_0:
+                  value:
+                    errors:
+                    - status: 403
+                      title: Forbidden
+        '404':
+          description: not found
+    patch:
+      summary: Updates an Integration
+      tags:
+      - Integrations
+      security:
+      - JWT: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/vnd.api+json:
+              examples:
+                example_0:
+                  value:
+                    data:
+                      id: abc123
+                      type: integration
+                      attributes:
+                        name: Jebbit
+              schema:
+                $ref: '#/components/schemas/integration'
+        '400':
+          description: bad request
+          content:
+            application/vnd.api+json:
+              examples:
+                example_0:
+                  value:
+                    data:
+                      id: abc123
+                      type: integration
+                      attributes:
+                        name: Jebbit
+              schema:
+                $ref: '#/components/schemas/integration'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              examples:
+                example_0:
+                  value:
+                    errors:
+                    - status: 401
+                      title: Unauthorized Request
+        '403':
+          description: forbidden
+          content:
+            application/vnd.api+json:
+              examples:
+                example_0:
+                  value:
+                    errors:
+                    - status: 403
+                      title: Forbidden
+        '404':
+          description: not found
+          content:
+            application/vnd.api+json:
+              examples:
+                example_0:
+                  value:
+                    data:
+                      id: abc123
+                      type: integration
+                      attributes:
+                        name: Jebbit
+              schema:
+                $ref: '#/components/schemas/integration'
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              type: object
+    delete:
+      summary: Delete an Integration
+      tags:
+      - Integrations
+      security:
+      - JWT: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Conent
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              examples:
+                example_0:
+                  value:
+                    errors:
+                    - status: 401
+                      title: Unauthorized Request
+        '403':
+          description: forbidden
+          content:
+            application/vnd.api+json:
+              examples:
+                example_0:
+                  value:
+                    errors:
+                    - status: 403
+                      title: Forbidden
+        '404':
+          description: not found
+  /api/v1/integrations/{integration_id}/test:
+    post:
+      summary: Send A test Integration Submission
+      tags:
+      - Integrations
+      security:
+      - JWT: []
+      parameters:
+      - name: integration_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+components:
+  schemas:
+    integrations:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: integration
+    integration_request:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            type:
+              type: string
+              default: integrations
+            attributes:
+              type: object
+              properties:
+                endpoint:
+                  type: string
+                region:
+                  type: string
+                  default: us
+                additional_options:
+                  type: object
+                  properties:
+                    campaign_name_filter:
+                      type: string
+                    include_url_params:
+                      type: boolean
+                    include_sub_channel:
+                      type: boolean
+                    include_outcome_names:
+                      type: boolean
+                    require_outcomes:
+                      type: boolean
+                    hash_pii:
+                      type: boolean
+    integration:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+            type:
+              type: string
+            attributes:
+              type: object
+              properties:
+                endpoint:
+                  type: string
+                  nullable: true
+                include_uids:
+                  type: boolean
+                region:
+                  type: string
+                  nullable: true
+                require_opt_in:
+                  type: boolean
+                  nullable: true
+                created_at:
+                  type: date
+                updated_at:
+                  type: date
+                service_name:
+                  type: string
+                shared_secret:
+                  type: string
+                  nullable: false
+                include_mapped_attributes:
+                  type: boolean
+                  nullable: true
+              required:
+              - endpoint
+              - service_name
+              - shared_secret
+          required:
+          - type
+  securitySchemes:
+    JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      flows:
+        authorizationCode:
+          tokenUrl: https://auth.jebbit.com/oauth/token
+          scopes:
+            read: Grants read access
+            write: Grants write access
+            delete: Grants delete access
