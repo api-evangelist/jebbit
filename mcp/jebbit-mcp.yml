@@ -1,0 +1,65 @@
+generated: '2026-07-19'
+method: derived
+status: candidate
+source: openapi/jebbit-openapi-original.json
+note: No official hosted Jebbit MCP server was found. Candidate tool list derived from the published OpenAPI
+  operations; the API has no operationIds, so tools are keyed to method+path.
+server:
+  name: jebbit
+  transport: http
+  base_url: https://api2.jebbit.com
+tools:
+- name: post_auth
+  description: Request an OAuth access token
+  source_operation: openapi/jebbit-openapi-original.json (POST /api/v1/auth)
+- name: get_self
+  description: Retrieve the currently authenticated business
+  source_operation: openapi/jebbit-openapi-original.json (GET /api/v1/self)
+- name: list_campaigns
+  description: List campaigns
+  source_operation: openapi/jebbit-openapi-original.json (GET /api/v1/campaigns)
+- name: get_campaign
+  description: Retrieve a campaign
+  source_operation: openapi/jebbit-openapi-original.json (GET /api/v1/campaigns/{campaign_id})
+- name: list_campaign_launch_links
+  description: List a campaign's launch links
+  source_operation: openapi/jebbit-openapi-original.json (GET /api/v1/campaigns/{campaign_id}/launch_links)
+- name: list_feeds
+  description: List product feeds
+  source_operation: openapi/jebbit-openapi-original.json (GET /api/v1/feeds)
+- name: create_feed
+  description: Create a product feed
+  source_operation: openapi/jebbit-openapi-original.json (POST /api/v1/feeds)
+- name: get_feed
+  description: Retrieve a product feed
+  source_operation: openapi/jebbit-openapi-original.json (GET /api/v1/feeds/{feed_id})
+- name: update_feed
+  description: Update a product feed
+  source_operation: openapi/jebbit-openapi-original.json (PATCH /api/v1/feeds/{feed_id})
+- name: delete_feed
+  description: Delete a product feed
+  source_operation: openapi/jebbit-openapi-original.json (DELETE /api/v1/feeds/{feed_id})
+- name: list_feed_columns
+  description: List feed columns
+  source_operation: openapi/jebbit-openapi-original.json (GET /api/v1/feed_columns)
+- name: create_feed_column
+  description: Create a feed column
+  source_operation: openapi/jebbit-openapi-original.json (POST /api/v1/feed_columns)
+- name: create_feed_row
+  description: Create a feed row (product)
+  source_operation: openapi/jebbit-openapi-original.json (POST /api/v1/feed_rows)
+- name: list_integrations
+  description: List webhook integrations
+  source_operation: openapi/jebbit-openapi-original.json (GET /api/v1/integrations)
+- name: create_integration
+  description: Create a webhook integration
+  source_operation: openapi/jebbit-openapi-original.json (POST /api/v1/integrations)
+- name: test_integration
+  description: Send a test webhook to an integration endpoint
+  source_operation: openapi/jebbit-openapi-original.json (POST /api/v1/integrations/{integration_id}/test)
+- name: list_integration_mappings
+  description: List integration attribute mappings
+  source_operation: openapi/jebbit-openapi-original.json (GET /api/v1/integration_mappings)
+- name: create_integration_backfill
+  description: Backfill historic session data to an integration
+  source_operation: openapi/jebbit-openapi-original.json (POST /api/v1/integration_historic_backfills)

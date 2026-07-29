@@ -1,0 +1,22 @@
+generated: '2026-07-19'
+method: searched
+source: api overview docs + native embed guide
+note: Jebbit separates a staging API host from production and provides a test-webhook trigger; no synthetic
+  test cards/tokens (not a payments API).
+environments:
+- name: staging
+  api_host: https://api.jebbx.com
+  note: Staging endpoint shown in docs examples ("use the production endpoint" for live).
+- name: production
+  api_host: https://api2.jebbit.com
+test_tools:
+- name: Test webhook
+  operation: POST /api/v1/integrations/{integration_id}/test
+  note: Sends a sample submission to your endpoint so you can validate x-jebbit-signature verification
+    before activating. Test deliveries carry an x-jebbit-test header and should be discarded.
+- name: Draft experiences
+  via: 'jebbit.launch(selector, campaignId, { draft: true })'
+  note: Load unpublished draft experiences client-side for testing.
+credentials:
+  note: client_id/client_secret are issued by a Jebbit Customer Success representative; no self-serve
+    test keys are published.

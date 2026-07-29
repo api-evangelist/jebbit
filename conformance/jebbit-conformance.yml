@@ -1,0 +1,33 @@
+generated: '2026-07-19'
+method: searched
+source: openapi/jebbit-openapi-original.json + developers.jebbit.com + BlueConic Trust Center
+standards:
+- id: json:api
+  conforms: true
+  evidence: All requests/responses use media type application/vnd.api+json with the JSON:API data/type/id/attributes
+    envelope.
+- id: oauth2-client-credentials
+  conforms: true
+  evidence: Tokens minted by Auth0 (auth.jebbit.com) via client_credentials grant, audience public-api.
+- id: oidc-discovery
+  conforms: true
+  evidence: auth.jebbit.com/.well-known/openid-configuration returns 200 (Auth0 tenant).
+- id: rfc8414-oauth-authorization-server
+  conforms: true
+  evidence: auth.jebbit.com/.well-known/oauth-authorization-server returns 200.
+- id: jwt
+  conforms: true
+  evidence: Access tokens are JWTs (bearerFormat JWT).
+- id: hmac-webhook-signatures
+  conforms: true
+  evidence: 'Webhooks carry x-jebbit-signature: t=<ts>,v1=<hmac> (HMAC-SHA256 over "<ts>.<body>") with
+    a per-integration shared_secret.'
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Errors use the JSON:API errors[] envelope, not application/problem+json.
+- id: soc2-type2
+  conforms: true
+  evidence: 'BlueConic (parent) Trust Center: SOC 2 Type 2 for Security, Availability, Confidentiality.'
+- id: gdpr-ccpa
+  conforms: true
+  evidence: TRUSTe Verified Privacy Seal + Verified International Privacy Seal per BlueConic Trust Center.

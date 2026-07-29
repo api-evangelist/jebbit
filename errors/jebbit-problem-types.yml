@@ -1,0 +1,33 @@
+generated: '2026-07-19'
+method: derived
+format: json:api
+source: openapi/jebbit-openapi-original.json
+envelope:
+  field: errors
+  shape: '{ "errors": [ { "status": <int>, "title": <string> } ] }'
+  note: Jebbit returns the JSON:API top-level errors array (media type application/vnd.api+json), not
+    RFC 9457 problem+json.
+problems:
+- status: 400
+  title: Bad Request
+  meaning: Malformed request body, invalid JSON:API document, or a missing required filter (e.g. filter[feed_id]).
+  remediation: Validate the JSON:API payload and required query filters.
+- status: 401
+  title: Unauthorized Request
+  meaning: Missing, expired, or invalid bearer token. Tokens expire after 24 hours.
+  remediation: 'Mint a fresh token from https://auth.jebbit.com/oauth/token and send it as Authorization:
+    Bearer <jwt>.'
+- status: 403
+  title: Forbidden
+  meaning: The token lacks the scope for this resource, or x-jebbit-business is required/incorrect for
+    a multi-business token.
+  remediation: Send the correct x-jebbit-business header and ensure the token holds the needed scope.
+- status: 404
+  title: Not Found
+  meaning: The referenced resource id does not exist or is not visible to this business.
+  remediation: Confirm the resource id and business scope.
+- status: 422
+  title: Unprocessable Entity
+  meaning: Semantic validation failed (seen on integration_historic_backfills and integration_mappings
+    creation).
+  remediation: Correct the attribute values against the resource schema.

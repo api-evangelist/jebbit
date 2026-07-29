@@ -1,0 +1,45 @@
+generated: '2026-07-19'
+method: searched
+source: developers.jebbit.com + api overview docs + openapi/jebbit-openapi-original.json
+media_type: application/vnd.api+json (JSON:API 1.0)
+authentication:
+  style: OAuth2 client_credentials bearer JWT
+  header: 'Authorization: Bearer <jwt>'
+  token_url: https://auth.jebbit.com/oauth/token
+  token_ttl_hours: 24
+  multi_tenant_header: x-jebbit-business
+  multi_tenant_note: Required on every request when the token has scope to multiple businesses; value
+    is a business id and scopes the request.
+idempotency:
+  supported: false
+  note: No idempotency-key header or contract is documented.
+pagination:
+  style: json:api
+  note: Resources are returned as JSON:API collections. No page/cursor params are documented in the OpenAPI.
+  default_sort: descending by creation time (all resources).
+filtering:
+  style: json:api filter
+  params:
+  - filter[feed_id]
+  note: feed_columns and feed_rows list endpoints require filter[feed_id].
+request_tracing:
+  header: null
+  note: No documented request-id/tracing header.
+error_envelope:
+  field: errors
+  ref: errors/jebbit-problem-types.yml
+webhooks:
+  signature_header: x-jebbit-signature
+  signature_format: t=<unix_ts>,v1=<base64_hmac_sha256>
+  algorithm: HMAC-SHA256 over "<timestamp>.<raw_request_body>" keyed by the per-integration shared_secret
+  replay_protection: reject if timestamp older than ~5 minutes
+  test_header: x-jebbit-test (discard test submissions)
+  ref: asyncapi/jebbit-webhooks.yml
+rate_limiting:
+  documented: false
+  note: No rate-limit headers or quotas documented.
+cross_links:
+- errors/jebbit-problem-types.yml
+- authentication/jebbit-authentication.yml
+- scopes/jebbit-scopes.yml
+- lifecycle/jebbit-lifecycle.yml

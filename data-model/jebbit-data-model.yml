@@ -1,0 +1,63 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/jebbit-openapi-original.json
+entities:
+- name: business
+  id: string
+  description: A Jebbit account/business (GET /api/v1/self).
+- name: campaign
+  id: string
+  description: A Jebbit experience/campaign.
+- name: launch_link
+  description: A shareable launch URL for a campaign.
+- name: feed
+  id: string
+  description: A dynamic product feed.
+- name: feed_column
+  id: string
+  description: A column/field definition on a feed.
+- name: feed_row
+  id: string
+  description: A product row on a feed.
+- name: integration
+  id: string
+  description: A webhook integration delivering session data.
+- name: integration_mapping
+  id: string
+  description: Attribute mapping for an integration.
+- name: integration_historic_backfill
+  id: string
+  description: A historic session-data backfill job for an integration.
+relationships:
+- from: business
+  type: has_many
+  to: campaign
+- from: business
+  type: has_many
+  to: feed
+- from: business
+  type: has_many
+  to: integration
+- from: campaign
+  type: has_many
+  to: launch_link
+  via: campaign_id
+  evidence: GET /api/v1/campaigns/{campaign_id}/launch_links
+- from: feed
+  type: has_many
+  to: feed_column
+  via: feed_id
+  evidence: GET /api/v1/feeds/{feed_id}/feed_columns ; filter[feed_id]
+- from: feed
+  type: has_many
+  to: feed_row
+  via: feed_id
+  evidence: GET /api/v1/feeds/{feed_id}/feed_rows ; filter[feed_id]
+- from: integration
+  type: has_many
+  to: integration_mapping
+  via: integration_id
+- from: integration_historic_backfill
+  type: belongs_to
+  to: integration
+  via: integration_id

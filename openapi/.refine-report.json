@@ -1,0 +1,32 @@
+{
+  "provider": "jebbit",
+  "sources": [
+    "jebbit-auth-api-openapi.yml",
+    "jebbit-businesses-api-openapi.yml",
+    "jebbit-campaigns-api-openapi.yml",
+    "jebbit-feed-columns-api-openapi.yml",
+    "jebbit-feed-rows-api-openapi.yml",
+    "jebbit-feeds-api-openapi.yml",
+    "jebbit-integration-historic-backfills-api-openapi.yml",
+    "jebbit-integration-mappings-api-openapi.yml",
+    "jebbit-integrations-api-openapi.yml",
+    "jebbit-launch-links-api-openapi.yml"
+  ],
+  "outputs": [
+    "jebbit-auth-api-openapi.yml",
+    "jebbit-businesses-api-openapi.yml",
+    "jebbit-campaigns-api-openapi.yml",
+    "jebbit-feed-columns-api-openapi.yml",
+    "jebbit-feed-rows-api-openapi.yml",
+    "jebbit-feeds-api-openapi.yml",
+    "jebbit-integration-historic-backfills-api-openapi.yml",
+    "jebbit-integration-mappings-api-openapi.yml",
+    "jebbit-integrations-api-openapi.yml",
+    "jebbit-launch-links-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

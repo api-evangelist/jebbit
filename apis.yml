@@ -1,20 +1,189 @@
 aid: jebbit
 name: Jebbit
-description: Jebbit is a company surfaced as a portfolio company of techstars and added to the API Evangelist
-  network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: Jebbit — now BlueConic Experiences — is an interactive experience platform that captures
+  zero- and first-party declared data from consumers through quizzes, product finders, personality tests,
+  and preference flows that shoppers complete because the experience gives them value in return. Responses
+  sync into customer profiles and activate across the marketing stack in real time. Jebbit exposes a public
+  JSON:API REST API (https://api2.jebbit.com) for managing businesses, campaigns, launch links, dynamic
+  product feeds, and webhook integrations that stream user session data, secured with OAuth 2.0 client-credentials
+  JWTs and HMAC-signed webhooks.
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://www.blueconic.com/experiences-by-jebbit
 url: https://raw.githubusercontent.com/api-evangelist/jebbit/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - techstars
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: enriched
+x-tier-reason: public-json-api-harvested
+x-acquired-by: BlueConic (Experiences by Jebbit)
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-19'
 tags:
 - Company
-apis: []
+- Interactive Experiences
+- Zero-Party Data
+- First-Party Data
+- Marketing
+- Quizzes
+- Product Feeds
+- Webhooks
+- Customer Data
+- JSON:API
+apis:
+- aid: jebbit:jebbit-auth-api
+  name: Jebbit Auth API
+  description: The Auth API from Jebbit — 1 operation(s) for auth.
+  humanURL: https://developers.jebbit.com/
+  baseURL: https://api2.jebbit.com
+  tags:
+  - Auth
+  properties:
+  - type: OpenAPI
+    url: openapi/jebbit-auth-api-openapi.yml
+  - type: Documentation
+    url: https://developers.jebbit.com/
+  - type: APIReference
+    url: https://developers.jebbit.com/
+- aid: jebbit:jebbit-businesses-api
+  name: Jebbit Businesses API
+  description: The Businesses API from Jebbit — 1 operation(s) for businesses.
+  humanURL: https://developers.jebbit.com/
+  baseURL: https://api2.jebbit.com
+  tags:
+  - Businesses
+  properties:
+  - type: OpenAPI
+    url: openapi/jebbit-businesses-api-openapi.yml
+  - type: Documentation
+    url: https://developers.jebbit.com/
+  - type: APIReference
+    url: https://developers.jebbit.com/
+- aid: jebbit:jebbit-campaigns-api
+  name: Jebbit Campaigns API
+  description: The Campaigns API from Jebbit — 2 operation(s) for campaigns.
+  humanURL: https://developers.jebbit.com/
+  baseURL: https://api2.jebbit.com
+  tags:
+  - Campaigns
+  properties:
+  - type: OpenAPI
+    url: openapi/jebbit-campaigns-api-openapi.yml
+  - type: Documentation
+    url: https://developers.jebbit.com/
+  - type: APIReference
+    url: https://developers.jebbit.com/
+- aid: jebbit:jebbit-feed-columns-api
+  name: Jebbit Feed Columns API
+  description: The Feed Columns API from Jebbit — 2 operation(s) for feed columns.
+  humanURL: https://developers.jebbit.com/
+  baseURL: https://api2.jebbit.com
+  tags:
+  - Feed Columns
+  properties:
+  - type: OpenAPI
+    url: openapi/jebbit-feed-columns-api-openapi.yml
+  - type: Documentation
+    url: https://developers.jebbit.com/
+  - type: APIReference
+    url: https://developers.jebbit.com/
+- aid: jebbit:jebbit-feed-rows-api
+  name: Jebbit Feed Rows API
+  description: The Feed Rows API from Jebbit — 2 operation(s) for feed rows.
+  humanURL: https://developers.jebbit.com/
+  baseURL: https://api2.jebbit.com
+  tags:
+  - Feed Rows
+  properties:
+  - type: OpenAPI
+    url: openapi/jebbit-feed-rows-api-openapi.yml
+  - type: Documentation
+    url: https://developers.jebbit.com/
+  - type: APIReference
+    url: https://developers.jebbit.com/
+- aid: jebbit:jebbit-feeds-api
+  name: Jebbit Feeds API
+  description: The Feeds API from Jebbit — 4 operation(s) for feeds.
+  humanURL: https://developers.jebbit.com/
+  baseURL: https://api2.jebbit.com
+  tags:
+  - Feeds
+  properties:
+  - type: OpenAPI
+    url: openapi/jebbit-feeds-api-openapi.yml
+  - type: Documentation
+    url: https://developers.jebbit.com/
+  - type: APIReference
+    url: https://developers.jebbit.com/
+- aid: jebbit:jebbit-integration-historic-backfills-api
+  name: Jebbit Integration Historic Backfills API
+  description: >-
+    The Integration Historic Backfills API from Jebbit — 2 operation(s) for integration historic backfills.
+  humanURL: https://developers.jebbit.com/
+  baseURL: https://api2.jebbit.com
+  tags:
+  - Integration Historic Backfills
+  properties:
+  - type: OpenAPI
+    url: openapi/jebbit-integration-historic-backfills-api-openapi.yml
+  - type: Documentation
+    url: https://developers.jebbit.com/
+  - type: APIReference
+    url: https://developers.jebbit.com/
+- aid: jebbit:jebbit-integration-mappings-api
+  name: Jebbit Integration Mappings API
+  description: The Integration Mappings API from Jebbit — 2 operation(s) for integration mappings.
+  humanURL: https://developers.jebbit.com/
+  baseURL: https://api2.jebbit.com
+  tags:
+  - Integration Mappings
+  properties:
+  - type: OpenAPI
+    url: openapi/jebbit-integration-mappings-api-openapi.yml
+  - type: Documentation
+    url: https://developers.jebbit.com/
+  - type: APIReference
+    url: https://developers.jebbit.com/
+- aid: jebbit:jebbit-integrations-api
+  name: Jebbit Integrations API
+  description: The Integrations API from Jebbit — 3 operation(s) for integrations.
+  humanURL: https://developers.jebbit.com/
+  baseURL: https://api2.jebbit.com
+  tags:
+  - Integrations
+  properties:
+  - type: OpenAPI
+    url: openapi/jebbit-integrations-api-openapi.yml
+  - type: Documentation
+    url: https://developers.jebbit.com/
+  - type: APIReference
+    url: https://developers.jebbit.com/
+- aid: jebbit:jebbit-launch-links-api
+  name: Jebbit Launch Links API
+  description: The Launch Links API from Jebbit — 1 operation(s) for launch links.
+  humanURL: https://developers.jebbit.com/
+  baseURL: https://api2.jebbit.com
+  tags:
+  - Launch Links
+  properties:
+  - type: OpenAPI
+    url: openapi/jebbit-launch-links-api-openapi.yml
+  - type: Documentation
+    url: https://developers.jebbit.com/
+  - type: APIReference
+    url: https://developers.jebbit.com/
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -23,3 +192,70 @@ maintainers:
 common:
 - type: Website
   url: https://jebbit.com/
+- type: DeveloperPortal
+  url: https://developers.jebbit.com/
+- type: Documentation
+  url: https://developers.jebbit.com/
+- type: APIReference
+  url: https://developers.jebbit.com/
+- type: GettingStarted
+  url: https://support-experiences.blueconic.com/en/articles/246971-api-overview
+- type: Support
+  url: https://support-experiences.blueconic.com/en/
+- type: HelpCenter
+  url: https://support-experiences.blueconic.com/en/
+- type: Blog
+  url: https://www.blueconic.com/category/blog
+- type: GitHubOrganization
+  url: https://github.com/jebbit
+- type: Login
+  url: https://app.jebbit.com/
+- type: TermsOfService
+  url: https://www.blueconic.com/legal/terms
+- type: PrivacyPolicy
+  url: https://www.blueconic.com/legal/privacy-policy
+- type: Authentication
+  url: authentication/jebbit-authentication.yml
+- type: OAuthScopes
+  url: scopes/jebbit-scopes.yml
+- type: Conventions
+  url: conventions/jebbit-conventions.yml
+- type: ErrorCatalog
+  url: errors/jebbit-problem-types.yml
+- type: Webhooks
+  url: asyncapi/jebbit-webhooks.yml
+- type: MCPServer
+  url: mcp/jebbit-mcp.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: WellKnown
+  url: well-known/jebbit-well-known.yml
+- type: Lifecycle
+  url: lifecycle/jebbit-lifecycle.yml
+- type: Conformance
+  url: conformance/jebbit-conformance.yml
+- type: Compliance
+  url: security/jebbit-trust-center.yml
+- type: TrustCenter
+  url: security/jebbit-trust-center.yml
+- type: VulnerabilityDisclosure
+  url: security/jebbit-vulnerability-disclosure.yml
+- type: Security
+  url: security/jebbit-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/jebbit-domain-security.yml
+- type: AgenticAccess
+  url: agentic-access/jebbit-agentic-access.yml
+- type: DataModel
+  url: data-model/jebbit-data-model.yml
+- type: Components
+  url: components/jebbit-components.yml
+- type: Sandbox
+  url: sandbox/jebbit-sandbox.yml
+- type: LLMsTxt
+  url: llms/jebbit-llms.txt
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

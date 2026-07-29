@@ -1,0 +1,18 @@
+generated: '2026-07-19'
+method: searched
+source: https://support-experiences.blueconic.com/en/articles/472223-native-embed-developer-guide
+note: Client-side embed for mounting Jebbit interactive experiences into a host page. Distinct from the
+  server-side REST API.
+families:
+- family: Native Embed
+  loader: https://js.jebbit.com/v1/embed.js
+  loader_status: 200
+  mount_element: any HTML container referenced by CSS selector (no iframe)
+  api:
+  - call: jebbit.launch(selector, campaignId, opts)
+    params:
+    - 'selector: CSS selector or HTMLElement'
+    - 'campaignId: public campaign id'
+    - 'opts.draft: boolean'
+    - 'opts.preview: boolean'
+    note: Supports multiple experiences per page; local dev requires https origin.

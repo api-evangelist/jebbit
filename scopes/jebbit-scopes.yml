@@ -1,0 +1,39 @@
+generated: '2026-07-19'
+method: searched
+source: openapi/jebbit-openapi-original.json
+docs: https://support-experiences.blueconic.com/en/articles/246971-api-overview
+note: Tokens are minted by an Auth0 tenant (auth.jebbit.com) via the OAuth 2.0 client_credentials grant
+  with audience "public-api". The OpenAPI models the bearer scheme as http/bearer but declares read/write/delete
+  scopes; the docs token example returns finer-grained resource scopes.
+schemes:
+- name: JWT (Auth0 client_credentials)
+  type: oauth2
+  flow: clientCredentials
+  tokenUrl: https://auth.jebbit.com/oauth/token
+  audience: public-api
+  source: openapi/jebbit-openapi-original.json
+scopes:
+- scope: read
+  description: Grants read access
+  sources:
+  - openapi/jebbit-openapi-original.json
+- scope: write
+  description: Grants write access
+  sources:
+  - openapi/jebbit-openapi-original.json
+- scope: delete
+  description: Grants delete access
+  sources:
+  - openapi/jebbit-openapi-original.json
+- scope: read:business:{business_id}
+  description: Read access scoped to a specific Jebbit business/account (observed in the docs token response).
+  sources:
+  - docs
+- scope: read:integration
+  description: Read access to integrations (webhooks).
+  sources:
+  - docs
+- scope: write:integration
+  description: Create/update integrations (webhooks).
+  sources:
+  - docs

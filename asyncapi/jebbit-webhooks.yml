@@ -1,0 +1,27 @@
+generated: '2026-07-19'
+method: searched
+spec_type: Webhooks
+source: https://developers.jebbit.com/ + https://support-experiences.blueconic.com/en/articles/246971-api-overview
+note: Jebbit publishes a webhook (outbound event) surface, not an AsyncAPI document. Session submissions
+  from experiences are POSTed to a customer-registered endpoint.
+delivery:
+  mechanism: HTTPS POST to the integration endpoint
+  create_via: POST /api/v1/integrations
+  test_via: POST /api/v1/integrations/{integration_id}/test
+  example_repo: https://github.com/jebbit/jebbit-webhook-client-example
+security:
+  signature_header: x-jebbit-signature
+  format: t=<unix_ts>,v1=<base64_hmac_sha256>
+  algorithm: HMAC-SHA256 over "<timestamp>.<raw_body>" keyed by the integration shared_secret
+  replay_window: ~5 minutes
+  test_header: x-jebbit-test
+events:
+- name: session.submission
+  description: A completed user session/submission from a Jebbit experience.
+  payload_fields:
+  - data.email
+  - data.<mapped_attributes>
+  - data.outcome
+  - data.opt_in
+  - event.event_number
+  example: '[{"data":{"email":"...","test_attribute":"attribute_value","opt_in":"true","outcome":"example_outcome"},"event":{"event_number":0}}]'

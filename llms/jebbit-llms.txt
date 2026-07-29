@@ -1,0 +1,32 @@
+# Jebbit (BlueConic Experiences) API
+
+> Jebbit — now BlueConic Experiences — is an interactive experience platform that captures zero- and first-party declared data through quizzes, product finders, and preference flows. The public Jebbit API (JSON:API over `https://api2.jebbit.com`) lets you manage businesses, campaigns, dynamic product feeds, launch links, and webhook integrations that stream user session data in real time.
+
+## API
+- [Jebbit API developer docs](https://developers.jebbit.com/): Redocly-hosted reference for the v1 REST API (JSON:API, media type application/vnd.api+json).
+- [API overview (getting started)](https://support-experiences.blueconic.com/en/articles/246971-api-overview): auth, self, integrations, test webhooks.
+- Base URL: https://api2.jebbit.com — auth via OAuth 2.0 client_credentials at https://auth.jebbit.com/oauth/token (audience public-api), 24h bearer JWT.
+
+## Specs
+- [OpenAPI 3.0.1 (harvested)](openapi/jebbit-openapi-original.json): 20 paths across Auth, Businesses, Campaigns, Feeds, Feed Columns, Feed Rows, Integrations, Integration Mappings, Integration Historic Backfills, Launch Links.
+- [OpenAPI Overlay (AE enhancements + suggested operationIds)](overlays/jebbit-openapi-overlay.yaml)
+
+## Artifacts
+- [Authentication](authentication/jebbit-authentication.yml) — OAuth2 client_credentials (Auth0), JWT bearer, x-jebbit-business tenant header.
+- [OAuth scopes](scopes/jebbit-scopes.yml) — read / write / delete / read:integration / write:integration.
+- [Conventions](conventions/jebbit-conventions.yml) — JSON:API envelope, filter[feed_id], HMAC webhook signatures.
+- [Error catalog](errors/jebbit-problem-types.yml) — JSON:API errors[] envelope (400/401/403/404/422).
+- [Webhooks](asyncapi/jebbit-webhooks.yml) — signed session-submission events (x-jebbit-signature, HMAC-SHA256).
+- [Data model](data-model/jebbit-data-model.yml) — business → campaigns/feeds/integrations; feed → columns/rows.
+- [Components](components/jebbit-components.yml) — js.jebbit.com/v1/embed.js native embed loader.
+- [Sandbox](sandbox/jebbit-sandbox.yml) — staging api.jebbx.com, test-webhook trigger, draft experiences.
+- [Conformance](conformance/jebbit-conformance.yml) — JSON:API, OAuth2/OIDC, SOC 2 Type 2.
+- [MCP (candidate)](mcp/jebbit-mcp.yml) — derived tool list from OpenAPI operations.
+- [Agent skills](skills/_index.yml) — webhook integration + product feed flows.
+- [Well-known](well-known/jebbit-well-known.yml) — Auth0 OIDC / OAuth AS discovery.
+
+## Docs
+- [Help Center](https://support-experiences.blueconic.com/en/): integrations, developer guides.
+- [Native embed guide](https://support-experiences.blueconic.com/en/articles/472223-native-embed-developer-guide)
+- [Trust Center (BlueConic)](https://www.blueconic.com/trust-center): SOC 2 Type 2, TRUSTe, security@blueconic.com.
+- [Webhook client example (Ruby)](https://github.com/jebbit/jebbit-webhook-client-example)

@@ -1,0 +1,34 @@
+generated: '2026-07-19'
+method: searched
+note: Auth0 tenant (auth.jebbit.com) exposes OIDC + OAuth AS discovery; the API hosts and marketing host
+  expose no /.well-known surface.
+documents:
+- host: https://auth.jebbit.com
+  path: /.well-known/openid-configuration
+  status: 200
+  file: jebbit-openid-configuration.json
+- host: https://auth.jebbit.com
+  path: /.well-known/oauth-authorization-server
+  status: 200
+  file: jebbit-oauth-authorization-server.json
+- host: https://auth.jebbit.com
+  path: /.well-known/security.txt
+  status: 404
+- host: https://api2.jebbit.com
+  path: /.well-known/security.txt
+  status: 404
+- host: https://api2.jebbit.com
+  path: /.well-known/openid-configuration
+  status: 404
+- host: https://api2.jebbit.com
+  path: /.well-known/oauth-authorization-server
+  status: 404
+- host: https://api2.jebbit.com
+  path: /.well-known/api-catalog
+  status: 404
+- host: https://api2.jebbit.com
+  path: /.well-known/ai-plugin.json
+  status: 404
+- host: https://jebbit.com
+  path: /.well-known/security.txt
+  status: 404

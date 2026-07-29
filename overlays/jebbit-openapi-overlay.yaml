@@ -1,0 +1,46 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Jebbit API
+  version: 1.0.0
+extends: openapi/jebbit-openapi-original.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-media-type: application/vnd.api+json
+    x-apievangelist-auth: oauth2 client_credentials (Auth0 auth.jebbit.com, audience public-api)
+    x-apievangelist-webhooks: HMAC-SHA256 signed (x-jebbit-signature) session submissions
+    x-apievangelist-notes: Real published OpenAPI 3.0.1 harvested from developers.jebbit.com (Redocly).
+      Operations carry no operationIds; see suggested ids below.
+- target: $.paths['/api/v1/auth'].post
+  update:
+    operationId: createToken
+- target: $.paths['/api/v1/self'].get
+  update:
+    operationId: getSelf
+- target: $.paths['/api/v1/campaigns'].get
+  update:
+    operationId: listCampaigns
+- target: $.paths['/api/v1/campaigns/{campaign_id}'].get
+  update:
+    operationId: getCampaign
+- target: $.paths['/api/v1/campaigns/{campaign_id}/launch_links'].get
+  update:
+    operationId: listLaunchLinks
+- target: $.paths['/api/v1/feeds'].get
+  update:
+    operationId: listFeeds
+- target: $.paths['/api/v1/feeds'].post
+  update:
+    operationId: createFeed
+- target: $.paths['/api/v1/feed_columns'].post
+  update:
+    operationId: createFeedColumn
+- target: $.paths['/api/v1/feed_rows'].post
+  update:
+    operationId: createFeedRow
+- target: $.paths['/api/v1/integrations'].post
+  update:
+    operationId: createIntegration
+- target: $.paths['/api/v1/integrations/{integration_id}/test'].post
+  update:
+    operationId: testIntegration

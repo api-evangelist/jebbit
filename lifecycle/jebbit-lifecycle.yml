@@ -1,0 +1,20 @@
+generated: '2026-07-19'
+method: searched
+source: developers.jebbit.com + openapi/jebbit-openapi-original.json
+versioning:
+  scheme: uri-path
+  current: v1
+  docs: https://developers.jebbit.com/
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: No published deprecation/sunset policy found.
+sla:
+  url: null
+  note: No public SLA/uptime target published for the developer API.
+status_page:
+  url: https://status.jebbit.com
+  verified: false
+  note: status.jebbit.com resolves 200 but is an S3-hosted page rendering no components on fetch; not
+    confirmed as a live component status page, so no StatusPage scoring pointer is emitted.
+deprecated_operations: []

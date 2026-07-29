@@ -1,0 +1,21 @@
+generated: '2026-07-19'
+method: generated
+source: openapi/jebbit-openapi-original.json + conventions/errors artifacts
+skills:
+- file: jebbit-create-webhook-integration.md
+  name: Create and verify a Jebbit webhook integration
+  api: openapi/jebbit-openapi-original.json
+  operations:
+  - POST /api/v1/auth
+  - GET /api/v1/self
+  - POST /api/v1/integrations
+  - POST /api/v1/integrations/{integration_id}/test
+- file: jebbit-manage-product-feed.md
+  name: Build a Jebbit dynamic product feed
+  api: openapi/jebbit-openapi-original.json
+  operations:
+  - POST /api/v1/auth
+  - POST /api/v1/feeds
+  - GET /api/v1/feeds/{feed_id}/feed_columns
+  - POST /api/v1/feed_columns
+  - POST /api/v1/feed_rows
