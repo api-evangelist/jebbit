@@ -19,7 +19,7 @@ accessModel:
   - authentication
   generated: '2026-07-22'
   method: derived
-image: https://www.blueconic.com/experiences-by-jebbit
+image: https://jebbit-public-api-docs.s3.amazonaws.com/images/logo.png
 url: https://raw.githubusercontent.com/api-evangelist/jebbit/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -30,7 +30,7 @@ x-tier-reason: public-json-api-harvested
 x-acquired-by: BlueConic (Experiences by Jebbit)
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-19'
+modified: '2026-08-13'
 tags:
 - Company
 - Interactive Experiences
@@ -53,6 +53,10 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/jebbit-auth-api-openapi.yml
+  - type: PostmanCollection
+    url: collections/jebbit-auth-api.postman_collection.json
+  - type: OpenCollection
+    url: collections/jebbit-auth-api.opencollection.json
   - type: Documentation
     url: https://developers.jebbit.com/
   - type: APIReference
@@ -67,6 +71,10 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/jebbit-businesses-api-openapi.yml
+  - type: PostmanCollection
+    url: collections/jebbit-businesses-api.postman_collection.json
+  - type: OpenCollection
+    url: collections/jebbit-businesses-api.opencollection.json
   - type: Documentation
     url: https://developers.jebbit.com/
   - type: APIReference
@@ -81,6 +89,10 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/jebbit-campaigns-api-openapi.yml
+  - type: PostmanCollection
+    url: collections/jebbit-campaigns-api.postman_collection.json
+  - type: OpenCollection
+    url: collections/jebbit-campaigns-api.opencollection.json
   - type: Documentation
     url: https://developers.jebbit.com/
   - type: APIReference
@@ -95,6 +107,10 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/jebbit-feed-columns-api-openapi.yml
+  - type: PostmanCollection
+    url: collections/jebbit-feed-columns-api.postman_collection.json
+  - type: OpenCollection
+    url: collections/jebbit-feed-columns-api.opencollection.json
   - type: Documentation
     url: https://developers.jebbit.com/
   - type: APIReference
@@ -109,6 +125,10 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/jebbit-feed-rows-api-openapi.yml
+  - type: PostmanCollection
+    url: collections/jebbit-feed-rows-api.postman_collection.json
+  - type: OpenCollection
+    url: collections/jebbit-feed-rows-api.opencollection.json
   - type: Documentation
     url: https://developers.jebbit.com/
   - type: APIReference
@@ -123,6 +143,10 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/jebbit-feeds-api-openapi.yml
+  - type: PostmanCollection
+    url: collections/jebbit-feeds-api.postman_collection.json
+  - type: OpenCollection
+    url: collections/jebbit-feeds-api.opencollection.json
   - type: Documentation
     url: https://developers.jebbit.com/
   - type: APIReference
@@ -138,6 +162,10 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/jebbit-integration-historic-backfills-api-openapi.yml
+  - type: PostmanCollection
+    url: collections/jebbit-integration-historic-backfills-api.postman_collection.json
+  - type: OpenCollection
+    url: collections/jebbit-integration-historic-backfills-api.opencollection.json
   - type: Documentation
     url: https://developers.jebbit.com/
   - type: APIReference
@@ -152,6 +180,10 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/jebbit-integration-mappings-api-openapi.yml
+  - type: PostmanCollection
+    url: collections/jebbit-integration-mappings-api.postman_collection.json
+  - type: OpenCollection
+    url: collections/jebbit-integration-mappings-api.opencollection.json
   - type: Documentation
     url: https://developers.jebbit.com/
   - type: APIReference
@@ -166,6 +198,10 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/jebbit-integrations-api-openapi.yml
+  - type: PostmanCollection
+    url: collections/jebbit-integrations-api.postman_collection.json
+  - type: OpenCollection
+    url: collections/jebbit-integrations-api.opencollection.json
   - type: Documentation
     url: https://developers.jebbit.com/
   - type: APIReference
@@ -180,6 +216,10 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/jebbit-launch-links-api-openapi.yml
+  - type: PostmanCollection
+    url: collections/jebbit-launch-links-api.postman_collection.json
+  - type: OpenCollection
+    url: collections/jebbit-launch-links-api.opencollection.json
   - type: Documentation
     url: https://developers.jebbit.com/
   - type: APIReference
@@ -256,8 +296,23 @@ common:
   url: sandbox/jebbit-sandbox.yml
 - type: LLMsTxt
   url: llms/jebbit-llms.txt
+- type: Packages
+  url: packages/jebbit-packages.yml
+- type: ToolCrosswalk
+  url: mcp/jebbit-tool-crosswalk.yml
+- type: RateLimits
+  url: rate-limits/jebbit-rate-limits.yml
+- type: Plans
+  url: plans/jebbit-plans-pricing.yml
 x-enrichment:
-  date: '2026-07-19'
-  status: backfilled
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 4
   pass: local-v1
-  note: backfilled from .gitignore signal + verified work evidence
+  note: >-
+    Round 2. New: packages/ (no first-party SDK — 0 API clients, one 2015 Ember addon + an unpinned
+    CDN embed loader), rate-limits/ (limit_count 0 — undocumented, no 429 in the spec),
+    plans/ (plan_count 0 — blueconic.com/pricing 301s to /contact), mcp/ tool crosswalk.
+    Upgraded: mcp deployment block (mode none, re-probed), well-known index (A2A agent-card probe).
+    No AgentCard, SDKs, StatusPage, Deprecation, ChangeLog, CLI, Idempotency or Postman-workspace
+    pointer emitted — each was probed and genuinely absent.
