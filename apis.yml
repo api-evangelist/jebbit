@@ -28,7 +28,7 @@ x-backed-by:
 x-tier: enriched
 x-tier-reason: public-json-api-harvested
 x-acquired-by: BlueConic (Experiences by Jebbit)
-specificationVersion: '0.20'
+specificationVersion: '0.23'
 created: '2026-07-17'
 modified: '2026-08-13'
 tags:
