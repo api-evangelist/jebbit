@@ -1,0 +1,44 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+provider: Jebbit
+providerId: jebbit
+generated: '2026-08-13'
+method: searched
+modified: '2026-08-13'
+sources:
+  - https://developers.jebbit.com/
+  - https://support-experiences.blueconic.com/en/articles/246971-api-overview
+  - openapi/_original/jebbit-openapi-original.json
+description: >-
+  Jebbit publishes no rate limits for the v1 REST API. The Redocly-hosted reference at
+  developers.jebbit.com and the "API overview" article in the Experiences knowledge base both
+  document authentication, the x-jebbit-business tenant header and resource sorting, but state no
+  request quota, no throttling window, and no rate-limit response headers. The harvested OpenAPI
+  declares 401/403/404/400/422 responses across all 37 operations and NO 429 response on any
+  operation, so there is not even a spec-level exhaustion signal for an agent to bind to.
+limit_count: 0
+limits: []
+headers:
+  request_limit: null
+  request_remaining: null
+  request_reset: null
+  retry_after: null
+  request_id: null
+  note: >-
+    No X-RateLimit-*, RateLimit-*, or Retry-After header is documented anywhere in the developer
+    reference or knowledge base, and none is declared in the OpenAPI.
+responseCodes:
+  throttled: null
+  note: No 429 response is declared on any of the 37 operations in the published OpenAPI.
+enforcement:
+  documented: false
+  observed: false
+  note: >-
+    Not probed live — every operation requires an OAuth 2.0 client_credentials token issued by a
+    Jebbit Customer Success representative (see sandbox/jebbit-sandbox.yml), so no unauthenticated
+    response headers are observable.
+gap: >-
+  Undocumented rate limiting is a runtime unknown for any agent or integration: a client cannot
+  pace itself, cannot distinguish throttling from failure, and has no Retry-After to honor. This is
+  the provider's to fix — publishing the limit and the response headers costs nothing and is the
+  single highest-value runtime-semantics addition available to this API.

@@ -1,0 +1,144 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Jebbit Auth Integrations API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Integrations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "integrations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api2.jebbit.com/api/v1/integrations",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "integrations"
+        },
+        {
+          "info": {
+            "name": "integrations",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api2.jebbit.com/api/v1/integrations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "integrations"
+        },
+        {
+          "info": {
+            "name": "Retrieves an Integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api2.jebbit.com/api/v1/integrations/:integration_id",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves an Integration"
+        },
+        {
+          "info": {
+            "name": "Updates an Integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api2.jebbit.com/api/v1/integrations/:integration_id",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates an Integration"
+        },
+        {
+          "info": {
+            "name": "Delete an Integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api2.jebbit.com/api/v1/integrations/:integration_id",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete an Integration"
+        },
+        {
+          "info": {
+            "name": "Send A test Integration Submission",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api2.jebbit.com/api/v1/integrations/:integration_id/test",
+            "params": [
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Send A test Integration Submission"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

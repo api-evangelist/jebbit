@@ -1,7 +1,11 @@
-generated: '2026-07-19'
+generated: '2026-08-13'
 method: searched
 note: Auth0 tenant (auth.jebbit.com) exposes OIDC + OAuth AS discovery; the API hosts and marketing host
-  expose no /.well-known surface.
+  expose no /.well-known surface. Re-probed 2026-08-13 including the A2A agent-card paths — every
+  host misses, so no a2a/ artifact and no AgentCard pointer is emitted. Note that jebbit.com /
+  www.jebbit.com is a Webflow site that answers 200 with an identical 326KB catch-all page for every
+  ordinary path, but DOES return a real 404 ("Invalid .well-known request") under /.well-known/, so
+  those 404s are genuine misses rather than soft-404 noise.
 documents:
 - host: https://auth.jebbit.com
   path: /.well-known/openid-configuration
@@ -32,3 +36,42 @@ documents:
 - host: https://jebbit.com
   path: /.well-known/security.txt
   status: 404
+# A2A agent-card probe, 2026-08-13 — both the 1.0 path and the pre-0.3 legacy path, every host.
+- host: https://api2.jebbit.com
+  path: /.well-known/agent-card.json
+  status: 404
+  checked: '2026-08-13'
+- host: https://api2.jebbit.com
+  path: /.well-known/agent.json
+  status: 404
+  checked: '2026-08-13'
+- host: https://auth.jebbit.com
+  path: /.well-known/agent-card.json
+  status: 404
+  checked: '2026-08-13'
+- host: https://auth.jebbit.com
+  path: /.well-known/agent.json
+  status: 404
+  checked: '2026-08-13'
+- host: https://www.jebbit.com
+  path: /.well-known/agent-card.json
+  status: 404
+  checked: '2026-08-13'
+- host: https://www.jebbit.com
+  path: /.well-known/agent.json
+  status: 404
+  checked: '2026-08-13'
+- host: https://developers.jebbit.com
+  path: /.well-known/agent-card.json
+  status: 403
+  checked: '2026-08-13'
+  note: S3-hosted docs bucket; AccessDenied on every path but the index.
+- host: https://app.jebbit.com
+  path: /.well-known/agent-card.json
+  status: 403
+  checked: '2026-08-13'
+- host: https://api.jebbx.com
+  path: /.well-known/agent-card.json
+  status: 404
+  checked: '2026-08-13'
+  note: Staging API host named in the docs examples.

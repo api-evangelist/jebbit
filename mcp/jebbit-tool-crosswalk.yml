@@ -1,0 +1,172 @@
+generated: '2026-08-13'
+method: derived
+status: candidate
+source: >-
+  Derived by binding the candidate MCP tool list in mcp/jebbit-mcp.yml to the operations of the
+  published Jebbit OpenAPI 3.0.1 (openapi/_original/jebbit-openapi-original.json, 37 operations;
+  split one-per-tag under openapi/).
+purpose: >-
+  Record which of Jebbit's REST operations an MCP tool surface would and would not cover, and make
+  the divergence explicit rather than silently dropped. IMPORTANT CAVEAT: Jebbit ships NO MCP
+  server (mcp/jebbit-mcp.yml deployment.mode = none). Every row below binds a CANDIDATE tool that
+  API Evangelist derived, not a tool the provider publishes. This artifact describes what an MCP
+  projection of this API would look like; it asserts nothing about the provider's agent surface.
+surfaces:
+  rest_openapi: openapi/            # 37 operations, OpenAPI 3.0.1, JSON:API (application/vnd.api+json)
+  rest_base_url: https://api2.jebbit.com
+  graphql: null                     # no GraphQL surface found
+  mcp: null                         # no hosted MCP endpoint and no stdio package published
+  gated:
+    - >-
+      All 37 REST operations require an OAuth 2.0 client_credentials bearer JWT minted at
+      https://auth.jebbit.com/oauth/token; credentials are issued by Jebbit Customer Success, so no
+      operation is anonymously callable.
+operation_id_note: >-
+  The published OpenAPI declares NO operationId on any operation. Rows therefore bind to
+  METHOD + PATH, which is the only stable identifier the contract offers. This is itself a finding:
+  without operationIds a tool generator has no canonical name to emit, which is why the candidate
+  tool names below had to be authored rather than read from the spec.
+crosswalk:
+  - tool: post_auth
+    category: auth
+    rest: ['POST /api/v1/auth']
+    binding: rest
+    confidence: high
+  - tool: get_self
+    category: businesses
+    rest: ['GET /api/v1/self']
+    binding: rest
+    confidence: high
+  - tool: list_campaigns
+    category: campaigns
+    rest: ['GET /api/v1/campaigns']
+    binding: rest
+    confidence: high
+  - tool: get_campaign
+    category: campaigns
+    rest: ['GET /api/v1/campaigns/{campaign_id}']
+    binding: rest
+    confidence: high
+  - tool: list_campaign_launch_links
+    category: launch-links
+    rest: ['GET /api/v1/campaigns/{campaign_id}/launch_links']
+    binding: rest
+    confidence: high
+  - tool: list_feeds
+    category: feeds
+    rest: ['GET /api/v1/feeds']
+    binding: rest
+    confidence: high
+  - tool: create_feed
+    category: feeds
+    rest: ['POST /api/v1/feeds']
+    binding: rest
+    confidence: high
+  - tool: get_feed
+    category: feeds
+    rest: ['GET /api/v1/feeds/{feed_id}']
+    binding: rest
+    confidence: high
+  - tool: update_feed
+    category: feeds
+    rest: ['PATCH /api/v1/feeds/{feed_id}']
+    binding: rest
+    confidence: high
+  - tool: delete_feed
+    category: feeds
+    rest: ['DELETE /api/v1/feeds/{feed_id}']
+    binding: rest
+    confidence: high
+  - tool: list_feed_columns
+    category: feed-columns
+    rest: ['GET /api/v1/feed_columns']
+    binding: rest
+    confidence: high
+    note: Requires filter[feed_id] — see conventions/jebbit-conventions.yml.
+  - tool: create_feed_column
+    category: feed-columns
+    rest: ['POST /api/v1/feed_columns']
+    binding: rest
+    confidence: high
+  - tool: create_feed_row
+    category: feed-rows
+    rest: ['POST /api/v1/feed_rows']
+    binding: rest
+    confidence: high
+  - tool: list_integrations
+    category: integrations
+    rest: ['GET /api/v1/integrations']
+    binding: rest
+    confidence: high
+  - tool: create_integration
+    category: integrations
+    rest: ['POST /api/v1/integrations']
+    binding: rest
+    confidence: high
+  - tool: test_integration
+    category: integrations
+    rest: ['POST /api/v1/integrations/{integration_id}/test']
+    binding: rest
+    confidence: high
+  - tool: list_integration_mappings
+    category: integration-mappings
+    rest: ['GET /api/v1/integration_mappings']
+    binding: rest
+    confidence: high
+  - tool: create_integration_backfill
+    category: backfills
+    rest: ['POST /api/v1/integration_historic_backfills']
+    binding: rest
+    confidence: high
+mcp_only: []
+rest_only:
+  - operation: 'GET /api/v1/feed_columns/{feed_column_id}'
+    reason: No candidate tool — single-column read folded into list_feed_columns.
+  - operation: 'PATCH /api/v1/feed_columns/{feed_column_id}'
+    reason: Mutating column update not surfaced as a candidate tool.
+  - operation: 'DELETE /api/v1/feed_columns/{feed_column_id}'
+    reason: Destructive column delete not surfaced as a candidate tool.
+  - operation: 'GET /api/v1/feed_rows'
+    reason: Row listing not surfaced; requires filter[feed_id].
+  - operation: 'GET /api/v1/feed_rows/{feed_row_id}'
+    reason: Single-row read not surfaced as a candidate tool.
+  - operation: 'PATCH /api/v1/feed_rows/{feed_row_id}'
+    reason: Mutating row update not surfaced as a candidate tool.
+  - operation: 'DELETE /api/v1/feed_rows/{feed_row_id}'
+    reason: Destructive row delete not surfaced as a candidate tool.
+  - operation: 'GET /api/v1/feeds/{feed_id}/feed_columns'
+    reason: Related-resource read; overlaps list_feed_columns.
+  - operation: 'GET /api/v1/feeds/{feed_id}/feed_rows'
+    reason: Related-resource read; overlaps a row listing that has no tool.
+  - operation: 'GET /api/v1/integration_historic_backfills'
+    reason: Backfill listing not surfaced as a candidate tool.
+  - operation: 'GET /api/v1/integration_historic_backfills/{backfill_id}'
+    reason: Backfill status read not surfaced — an agent could not poll a backfill it started.
+  - operation: 'PATCH /api/v1/integration_historic_backfills/{backfill_id}'
+    reason: Backfill update not surfaced as a candidate tool.
+  - operation: 'POST /api/v1/integration_mappings'
+    reason: Mapping creation not surfaced as a candidate tool.
+  - operation: 'GET /api/v1/integration_mappings/{integration_mapping_id}'
+    reason: Single-mapping read not surfaced as a candidate tool.
+  - operation: 'PATCH /api/v1/integration_mappings/{integration_mapping_id}'
+    reason: Mapping update not surfaced as a candidate tool.
+  - operation: 'DELETE /api/v1/integration_mappings/{integration_mapping_id}'
+    reason: Destructive mapping delete not surfaced as a candidate tool.
+  - operation: 'GET /api/v1/integrations/{integration_id}'
+    reason: Single-integration read not surfaced as a candidate tool.
+  - operation: 'PATCH /api/v1/integrations/{integration_id}'
+    reason: Integration update (incl. activation) not surfaced as a candidate tool.
+  - operation: 'DELETE /api/v1/integrations/{integration_id}'
+    reason: Destructive integration delete not surfaced as a candidate tool.
+coverage:
+  rest_operations: 37
+  candidate_tools: 18
+  bound: 18
+  mcp_only: 0
+  rest_only: 19
+  rest_coverage_pct: 49
+  note: >-
+    The candidate tool set covers roughly half of the REST surface; the uncovered half is dominated
+    by single-resource reads and destructive updates/deletes, which is the right default posture for
+    an agent surface (see agentic-access/jebbit-agentic-access.yml for the per-operation
+    consequence classification).

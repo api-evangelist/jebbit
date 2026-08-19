@@ -1,0 +1,100 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Jebbit Auth Integration Historic Backfills API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Integration Historic Backfills",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Index Integration Historic Backfills",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api2.jebbit.com/api/v1/integration_historic_backfills",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Index Integration Historic Backfills"
+        },
+        {
+          "info": {
+            "name": "integration_historic_backfills",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api2.jebbit.com/api/v1/integration_historic_backfills",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "integration_historic_backfills"
+        },
+        {
+          "info": {
+            "name": "Shows an Integration Historic Backfill",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api2.jebbit.com/api/v1/integration_historic_backfills/:backfill_id",
+            "params": [
+              {
+                "name": "backfill_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Shows an Integration Historic Backfill"
+        },
+        {
+          "info": {
+            "name": "update integration historic backfill",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api2.jebbit.com/api/v1/integration_historic_backfills/:backfill_id",
+            "params": [
+              {
+                "name": "backfill_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "update integration historic backfill"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

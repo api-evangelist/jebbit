@@ -1,0 +1,40 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Jebbit Auth Launch Links API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Launch Links",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists Launch Links for a Campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api2.jebbit.com/api/v1/campaigns/:campaign_id/launch_links",
+            "params": [
+              {
+                "name": "campaign_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Lists Launch Links for a Campaign"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

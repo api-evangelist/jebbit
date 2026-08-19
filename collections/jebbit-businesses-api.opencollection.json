@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Jebbit Auth Businesses API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Businesses",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "self",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api2.jebbit.com/api/v1/self",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "self"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

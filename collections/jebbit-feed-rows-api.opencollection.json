@@ -1,0 +1,129 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Jebbit Auth Feed Rows API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Feed Rows",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists feed rows",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api2.jebbit.com/api/v1/feed_rows",
+            "params": [
+              {
+                "name": "filter[feed_id]",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Lists feed rows"
+        },
+        {
+          "info": {
+            "name": "Creates a feed row",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api2.jebbit.com/api/v1/feed_rows",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a feed row"
+        },
+        {
+          "info": {
+            "name": "Retrieves a Feed Row",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api2.jebbit.com/api/v1/feed_rows/:feed_row_id",
+            "params": [
+              {
+                "name": "feed_row_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves a Feed Row"
+        },
+        {
+          "info": {
+            "name": "Updates a Feed Row",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api2.jebbit.com/api/v1/feed_rows/:feed_row_id",
+            "params": [
+              {
+                "name": "feed_row_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates a Feed Row"
+        },
+        {
+          "info": {
+            "name": "Deletes a Feed Row",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api2.jebbit.com/api/v1/feed_rows/:feed_row_id",
+            "params": [
+              {
+                "name": "feed_row_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes a Feed Row"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

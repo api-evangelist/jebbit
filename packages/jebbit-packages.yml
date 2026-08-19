@@ -1,0 +1,83 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  Registry searches against registry.npmjs.org, pypi.org, rubygems.org, packagist.org and
+  crates.io for "jebbit"; plus the Jebbit developer docs (https://developers.jebbit.com/),
+  the Experiences knowledge base (https://support-experiences.blueconic.com/en/) and the
+  public GitHub organization https://github.com/jebbit.
+description: >-
+  Jebbit publishes NO first-party API client library in any language. The developer docs
+  document raw HTTP against https://api2.jebbit.com and ship no SDK section. Two first-party
+  distributions do exist and are recorded below — a decade-stale Ember UI addon on npm and the
+  unpinned client-side embed loader on the Jebbit CDN — but neither is a client for the REST
+  API, so no `SDKs` pointer is emitted for this provider.
+sdk_count: 0
+package_count: 2
+packages:
+  - language: javascript
+    registry: npm
+    name: "@jebbit/jebbit-bar-components"
+    url: https://www.npmjs.com/package/@jebbit/jebbit-bar-components
+    source: https://github.com/jebbit/jebbit-bar-components
+    install: npm install @jebbit/jebbit-bar-components
+    official: true
+    kind: ui-addon
+    api_client: false
+    license: MIT
+    version: 0.1.3
+    published: '2015-11-17'
+    note: >-
+      Ember addon for the legacy "Jebbit bar" UI, published under the first-party @jebbit npm
+      scope. Last release 2015-11-17 — over ten years before the current v1 REST API surface it
+      does not wrap. Read from registry.npmjs.org dist-tags.latest + time[latest]. Recorded as a
+      first-party package, NOT as an SDK.
+  - language: javascript
+    registry: cdn
+    name: jebbit embed loader
+    url: https://js.jebbit.com/v1/embed.js
+    source: https://support-experiences.blueconic.com/en/articles/472223-native-embed-developer-guide
+    install: '<script src="https://js.jebbit.com/v1/embed.js"></script>'
+    official: true
+    kind: browser-embed
+    api_client: false
+    version: null
+    published: null
+    http_status: 200
+    note: >-
+      CDN-distributed browser loader for mounting Jebbit interactive experiences into a host page
+      (see components/jebbit-components.yml). The URL is pinned only to a major "v1" path segment,
+      not to a release, and there is no jsDelivr/unpkg metadata endpoint for it — so neither we nor
+      a consumer can tell which build is being served. version/published recorded as null
+      deliberately: checked, nothing publishable to record.
+related:
+  - kind: example-repository
+    name: jebbit-webhook-client-example
+    url: https://github.com/jebbit/jebbit-webhook-client-example
+    language: ruby
+    official: true
+    last_push: '2022-06-06'
+    note: >-
+      Example Rails app for receiving and signature-verifying Jebbit webhooks, referenced from the
+      OpenAPI description. A starter application, not a distributable package — no registry entry.
+registries_checked:
+  - registry: npm
+    query: jebbit
+    result: 1 first-party package (@jebbit/jebbit-bar-components); @ofrusch/cadence is hosted in the
+      jebbit GitHub org but is an unrelated personal MCP planner, not a Jebbit product.
+  - registry: pypi
+    query: jebbit
+    result: 404 — no package
+  - registry: rubygems
+    query: jebbit
+    result: empty result set
+  - registry: packagist
+    query: jebbit
+    result: 0 results
+  - registry: crates.io
+    query: jebbit
+    result: no first-party crate
+note: >-
+  Jebbit is now BlueConic Experiences. The parent company publishes its own npm package
+  (@blueconic/blueconic-mcp), but that adapter targets the BlueConic CDP tenant REST API, not the
+  Jebbit Experiences API at api2.jebbit.com — it is a different product on a different host and is
+  therefore recorded under all/blueconic/, not here.

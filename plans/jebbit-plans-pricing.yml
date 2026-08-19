@@ -1,0 +1,40 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+provider: Jebbit
+providerId: jebbit
+generated: '2026-08-13'
+method: searched
+modified: '2026-08-13'
+sources:
+  - url: https://www.blueconic.com/pricing
+    http_status: 200
+    note: 301/302s to https://www.blueconic.com/contact — a "Contact" form, not a rate card.
+  - url: https://www.jebbit.com/pricing
+    http_status: 200
+    note: >-
+      Soft 200. www.jebbit.com is a Webflow site that returns the identical 326,741-byte
+      "Interactive Experiences (Formerly Jebbit) | BlueConic" page for EVERY path, including
+      /zzz-nonexistent-9911. Not a pricing page.
+  - url: https://developers.jebbit.com/
+    http_status: 200
+    note: API reference documents no plans, quotas, or metered API pricing.
+description: >-
+  Jebbit — now BlueConic Experiences — publishes no plans, no tiers, and no list price. Product
+  pricing is sales-gated: BlueConic's /pricing URL redirects to a contact form, and the Jebbit
+  marketing site serves a single catch-all page with no pricing route at all. API access is not
+  separately priced or metered in any published material; credentials (client_id/client_secret)
+  are issued by a Jebbit Customer Success representative to existing customers, which makes API
+  access a function of the commercial contract rather than a purchasable plan.
+plan_count: 0
+plans: []
+pricing_model: contact-sales
+api_access:
+  self_serve: false
+  metered: false
+  note: >-
+    No published per-call, per-seat, or per-response pricing for the v1 REST API. See
+    sandbox/jebbit-sandbox.yml — there are no self-serve test keys either.
+gap: >-
+  A buyer or an agent cannot determine the cost of calling this API from any public surface. An
+  honest zero, recorded rather than omitted: plan_count 0 means "checked, the provider publishes
+  nothing", not "not checked".

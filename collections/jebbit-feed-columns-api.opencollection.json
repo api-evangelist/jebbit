@@ -1,0 +1,129 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Jebbit Auth Feed Columns API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Feed Columns",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists feed columns",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api2.jebbit.com/api/v1/feed_columns",
+            "params": [
+              {
+                "name": "filter[feed_id]",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Lists feed columns"
+        },
+        {
+          "info": {
+            "name": "Creates a feed column",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api2.jebbit.com/api/v1/feed_columns",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a feed column"
+        },
+        {
+          "info": {
+            "name": "Retrieves a Feed Column",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api2.jebbit.com/api/v1/feed_columns/:feed_column_id",
+            "params": [
+              {
+                "name": "feed_column_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves a Feed Column"
+        },
+        {
+          "info": {
+            "name": "Updates a Feed Column",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api2.jebbit.com/api/v1/feed_columns/:feed_column_id",
+            "params": [
+              {
+                "name": "feed_column_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates a Feed Column"
+        },
+        {
+          "info": {
+            "name": "Deletes a Feed Column",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api2.jebbit.com/api/v1/feed_columns/:feed_column_id",
+            "params": [
+              {
+                "name": "feed_column_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes a Feed Column"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,166 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Jebbit Auth Feeds API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Feeds",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists feeds",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api2.jebbit.com/api/v1/feeds",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Lists feeds"
+        },
+        {
+          "info": {
+            "name": "Creates a feed",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api2.jebbit.com/api/v1/feeds",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a feed"
+        },
+        {
+          "info": {
+            "name": "Retrieves a Feed",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api2.jebbit.com/api/v1/feeds/:feed_id",
+            "params": [
+              {
+                "name": "feed_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves a Feed"
+        },
+        {
+          "info": {
+            "name": "Updates a Feed",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api2.jebbit.com/api/v1/feeds/:feed_id",
+            "params": [
+              {
+                "name": "feed_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates a Feed"
+        },
+        {
+          "info": {
+            "name": "Deletes a feed",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api2.jebbit.com/api/v1/feeds/:feed_id",
+            "params": [
+              {
+                "name": "feed_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes a feed"
+        },
+        {
+          "info": {
+            "name": "Retrieves Related Feed Columns",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api2.jebbit.com/api/v1/feeds/:feed_id/feed_columns",
+            "params": [
+              {
+                "name": "feed_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves Related Feed Columns"
+        },
+        {
+          "info": {
+            "name": "Retrieves Related Feed Rows",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api2.jebbit.com/api/v1/feeds/:feed_id/feed_rows",
+            "params": [
+              {
+                "name": "feed_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves Related Feed Rows"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

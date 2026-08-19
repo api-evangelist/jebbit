@@ -63,3 +63,28 @@ tools:
 - name: create_integration_backfill
   description: Backfill historic session data to an integration
   source_operation: openapi/jebbit-openapi-original.json (POST /api/v1/integration_historic_backfills)
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: oauth
+  verified: probed
+  tools: 18
+  checked: '2026-08-13'
+  source: >-
+    catalog MCP census (2026-08-12), re-probed 2026-08-13: POST tools/list to
+    https://mcp.jebbit.com/mcp returned 403 (edge block, not an MCP server) and to
+    https://api2.jebbit.com/mcp returned 404 {"status":404,"error":"Not Found"}. No npm/PyPI stdio
+    package published under the Jebbit name. Nobody ships a Jebbit MCP server; the tools[] above are
+    an API Evangelist-derived candidate list, never a provider surface.
+  auth_note: >-
+    auth: oauth records what a server WOULD require — the underlying REST API is OAuth 2.0
+    client_credentials (auth.jebbit.com, audience public-api). It is not evidence of a server.
+parent_company_note: >-
+  BlueConic (Jebbit's parent; Jebbit is now "BlueConic Experiences") does publish an MCP server —
+  @blueconic/blueconic-mcp on npm, a local-stdio multi-tenant adapter that loads a BlueConic CDP
+  tenant's OpenAPI at startup. That server targets the BlueConic CDP REST API, a different product
+  on a different host, and is recorded under all/blueconic/ — NOT here. Crediting Jebbit with it
+  would attribute an agent surface the Jebbit Experiences API does not have.
+crosswalk: mcp/jebbit-tool-crosswalk.yml
