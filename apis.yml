@@ -39,6 +39,17 @@ tags:
 - Marketing
 - Quizzes
 - Product Feeds
+- Webhook
+- Customer Data
+- JSON:API
+tags_raw:
+- Company
+- Interactive Experiences
+- Zero-Party Data
+- First-Party Data
+- Marketing
+- Quizzes
+- Product Feeds
 - Webhooks
 - Customer Data
 - JSON:API
@@ -49,6 +60,8 @@ apis:
   humanURL: https://developers.jebbit.com/
   baseURL: https://api2.jebbit.com
   tags:
+  - Authentication
+  tags_raw:
   - Auth
   properties:
   - type: OpenAPI
@@ -194,6 +207,8 @@ apis:
   humanURL: https://developers.jebbit.com/
   baseURL: https://api2.jebbit.com
   tags:
+  - Integration
+  tags_raw:
   - Integrations
   properties:
   - type: OpenAPI
