@@ -7,6 +7,18 @@ description: Jebbit — now BlueConic Experiences — is an interactive experien
   JSON:API REST API (https://api2.jebbit.com) for managing businesses, campaigns, launch links, dynamic
   product feeds, and webhook integrations that stream user session data, secured with OAuth 2.0 client-credentials
   JWTs and HMAC-signed webhooks.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve
