@@ -29,6 +29,7 @@ accessModel:
   confidence: medium
   source:
   - authentication
+  - {url: 'https://jebbit.com/', status: 301, note: 'declared website redirects to https://www.blueconic.com/experiences-by-jebbit — a different registrable domain (jebbit.com -> blueconic.com), possible rename or acquisition (probed 2026-09-03, roadmap#169)'}
   generated: '2026-07-22'
   method: derived
 image: https://jebbit-public-api-docs.s3.amazonaws.com/images/logo.png
@@ -293,8 +294,9 @@ common:
   url: errors/jebbit-problem-types.yml
 - type: Webhooks
   url: asyncapi/jebbit-webhooks.yml
-- type: MCPServer
+- type: X-MCPServerCandidate
   url: mcp/jebbit-mcp.yml
+  note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type surfaces with a server that does not exist.'
 - type: AgentSkill
   url: skills/_index.yml
 - type: WellKnown
