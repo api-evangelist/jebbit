@@ -93,6 +93,8 @@ apis:
   humanURL: https://developers.jebbit.com/
   baseURL: https://api2.jebbit.com
   tags:
+  - Business
+  tags_raw:
   - Businesses
   properties:
   - type: OpenAPI
@@ -165,6 +167,8 @@ apis:
   humanURL: https://developers.jebbit.com/
   baseURL: https://api2.jebbit.com
   tags:
+  - Feed
+  tags_raw:
   - Feeds
   properties:
   - type: OpenAPI
