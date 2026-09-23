@@ -1,16 +1,7 @@
 {
   "provider": "jebbit",
   "sources": [
-    "jebbit-auth-api-openapi.yml",
-    "jebbit-businesses-api-openapi.yml",
-    "jebbit-campaigns-api-openapi.yml",
-    "jebbit-feed-columns-api-openapi.yml",
-    "jebbit-feed-rows-api-openapi.yml",
-    "jebbit-feeds-api-openapi.yml",
-    "jebbit-integration-historic-backfills-api-openapi.yml",
-    "jebbit-integration-mappings-api-openapi.yml",
-    "jebbit-integrations-api-openapi.yml",
-    "jebbit-launch-links-api-openapi.yml"
+    "_original/jebbit-openapi-original.json"
   ],
   "outputs": [
     "jebbit-auth-api-openapi.yml",
@@ -27,6 +18,31 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "jebbit-openapi-original.json: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
+    "jebbit-openapi-original.json: declared missing tag: Auth",
+    "jebbit-openapi-original.json: declared missing tag: Businesses",
+    "jebbit-openapi-original.json: declared missing tag: Campaigns",
+    "jebbit-openapi-original.json: declared missing tag: Feed Columns",
+    "jebbit-openapi-original.json: declared missing tag: Feed Rows",
+    "jebbit-openapi-original.json: declared missing tag: Feeds",
+    "jebbit-openapi-original.json: declared missing tag: Integration Historic Backfills",
+    "jebbit-openapi-original.json: declared missing tag: Integration Mappings",
+    "jebbit-openapi-original.json: declared missing tag: Integrations",
+    "jebbit-openapi-original.json: declared missing tag: Launch Links",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "jebbit-auth-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "jebbit-businesses-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "jebbit-campaigns-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "jebbit-feed-columns-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "jebbit-feed-rows-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "jebbit-feeds-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "jebbit-integration-historic-backfills-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "jebbit-integration-mappings-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "jebbit-integrations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "jebbit-launch-links-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
