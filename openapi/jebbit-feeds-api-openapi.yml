@@ -402,20 +402,6 @@ components:
               - status
           required:
           - type
-    feeds:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: feed
-    feed_columns:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: feed_column
     feed_rows:
       type: object
       properties:
@@ -442,6 +428,20 @@ components:
               - status
           required:
           - type
+    feed_columns:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: feed_column
+    feeds:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: feed
   securitySchemes:
     JWT:
       type: http

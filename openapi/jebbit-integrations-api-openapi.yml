@@ -320,45 +320,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    integrations:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: integration
-    integration_request:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            type:
-              type: string
-              default: integrations
-            attributes:
-              type: object
-              properties:
-                endpoint:
-                  type: string
-                region:
-                  type: string
-                  default: us
-                additional_options:
-                  type: object
-                  properties:
-                    campaign_name_filter:
-                      type: string
-                    include_url_params:
-                      type: boolean
-                    include_sub_channel:
-                      type: boolean
-                    include_outcome_names:
-                      type: boolean
-                    require_outcomes:
-                      type: boolean
-                    hash_pii:
-                      type: boolean
     integration:
       type: object
       properties:
@@ -404,6 +365,45 @@ components:
               - shared_secret
           required:
           - type
+    integration_request:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            type:
+              type: string
+              default: integrations
+            attributes:
+              type: object
+              properties:
+                endpoint:
+                  type: string
+                region:
+                  type: string
+                  default: us
+                additional_options:
+                  type: object
+                  properties:
+                    campaign_name_filter:
+                      type: string
+                    include_url_params:
+                      type: boolean
+                    include_sub_channel:
+                      type: boolean
+                    include_outcome_names:
+                      type: boolean
+                    require_outcomes:
+                      type: boolean
+                    hash_pii:
+                      type: boolean
+    integrations:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: integration
   securitySchemes:
     JWT:
       type: http
