@@ -248,13 +248,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    integration_mappings:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: integration_mapping
     integration_mapping:
       type: object
       properties:
@@ -284,6 +277,13 @@ components:
               - integration_id
           required:
           - type
+    integration_mappings:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: integration_mapping
   securitySchemes:
     JWT:
       type: http

@@ -317,6 +317,13 @@ components:
               - feed_id
           required:
           - type
+    feed_columns:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: feed_column
     feed_column:
       type: object
       properties:
@@ -335,13 +342,6 @@ components:
               - feed_id
           required:
           - type
-    feed_columns:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: feed_column
   securitySchemes:
     JWT:
       type: http
