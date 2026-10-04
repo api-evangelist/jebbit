@@ -299,7 +299,7 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    feed_column_request:
+    feed_column:
       type: object
       properties:
         data:
@@ -324,7 +324,7 @@ components:
           type: array
           items:
             type: feed_column
-    feed_column:
+    feed_column_request:
       type: object
       properties:
         data:

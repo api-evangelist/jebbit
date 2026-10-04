@@ -112,6 +112,13 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    campaigns:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: campaign
     campaign:
       type: object
       properties:
@@ -141,13 +148,6 @@ components:
               - active_iteration
           required:
           - type
-    campaigns:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: campaign
   securitySchemes:
     JWT:
       type: http
