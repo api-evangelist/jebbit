@@ -227,13 +227,20 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    integration_historic_backfills:
+    integration_historic_backfill_request:
       type: object
       properties:
         data:
-          type: array
-          items:
-            type: integration_historic_backfill
+          type: object
+          properties:
+            type:
+              type: string
+              default: integration_historic_backfills
+            attributes:
+              type: object
+              properties:
+                integration_id:
+                  type: string
     integration_historic_backfill:
       type: object
       properties:
@@ -260,20 +267,13 @@ components:
               - integration_id
           required:
           - type
-    integration_historic_backfill_request:
+    integration_historic_backfills:
       type: object
       properties:
         data:
-          type: object
-          properties:
-            type:
-              type: string
-              default: integration_historic_backfills
-            attributes:
-              type: object
-              properties:
-                integration_id:
-                  type: string
+          type: array
+          items:
+            type: integration_historic_backfill
   securitySchemes:
     JWT:
       type: http

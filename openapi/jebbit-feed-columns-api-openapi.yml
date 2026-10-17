@@ -299,6 +299,24 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    feed_column_request:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            type:
+              type: string
+            attributes:
+              type: object
+              properties:
+                name:
+                  type: string
+              required:
+              - name
+              - feed_id
+          required:
+          - type
     feed_column:
       type: object
       properties:
@@ -324,24 +342,6 @@ components:
           type: array
           items:
             type: feed_column
-    feed_column_request:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            type:
-              type: string
-            attributes:
-              type: object
-              properties:
-                name:
-                  type: string
-              required:
-              - name
-              - feed_id
-          required:
-          - type
   securitySchemes:
     JWT:
       type: http

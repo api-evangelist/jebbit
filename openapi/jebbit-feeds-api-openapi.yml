@@ -383,13 +383,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    feed_rows:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: feed_row
     feeds:
       type: object
       properties:
@@ -397,13 +390,6 @@ components:
           type: array
           items:
             type: feed
-    feed_columns:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: feed_column
     feed_request:
       type: object
       properties:
@@ -423,6 +409,20 @@ components:
               - status
           required:
           - type
+    feed_columns:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: feed_column
+    feed_rows:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: feed_row
     feed:
       type: object
       properties:
