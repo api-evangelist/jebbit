@@ -1,22 +1,5 @@
 generated: '2026-10-14'
 edges:
-- partner_name: Twilio Segment
-  partner: segment
-  partner_match: aggregator
-  marketplace: coverage
-  channel: partner-built
-  direction: partner-built
-  type: coverage
-  relationship: connector-coverage
-  evidence: https://www.twilio.com/docs/segment/connections/sources/catalog/cloud-apps/jebbit
-  coverage_role:
-  - source
-  cdp_signals:
-    source:
-      catalog_entries:
-      - jebbit
-  detected_by: sweep-cdp.py
-  first_seen: '2026-10-14'
 - partner_name: npm registry
   partner: npm
   partner_match: register
@@ -47,6 +30,23 @@ edges:
     detected: '2026-10-18'
   detected_by: sweep-official-sdks.py
   first_seen: '2026-10-18'
+- partner_name: Twilio Segment
+  partner: segment
+  partner_match: aggregator
+  marketplace: coverage
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://www.twilio.com/docs/segment/connections/sources/catalog/cloud-apps/jebbit
+  coverage_role:
+  - source
+  cdp_signals:
+    source:
+      catalog_entries:
+      - jebbit
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
 method: searched
 checked:
 - https://api.nuget.org/v3
